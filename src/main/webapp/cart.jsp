@@ -26,6 +26,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                <c:if test="${sessionScope.orderlineDTOMap.size() != 0}">
                 <c:forEach var="cartitem" items="${sessionScope.cartDTOList}">
                     <form action="CartServlet">
                         <tr>
@@ -68,17 +69,27 @@
                         </tr>
                     </form>
                 </c:forEach>
+                </c:if>
                 </tbody>
+                <tfoot style="font-weight: bold">
+                <td>I alt: ${sessionScope.totalCupcakeQuantity} stk cupcakes</td>
+                <td></td>
+                <td>Total: </td>
+                <td>${sessionScope.total} kr</td>
+                <td>Anuller eller gå tilbage knap</td>
+                </tfoot>
             </table>
         </div>
 
-        <p>Total: ${sessionScope.total} kr</p>
+<%--        <p>Total: ${sessionScope.total} kr</p>--%>
         <c:if test="${sessionScope.user != null}">
         <p>Din saldo: ${sessionScope.user.balance} kr</p>
         <form>
             <button type="submit" formaction="PayServlet" class="btn btn-primary btn-lg">Betal</button>
         </form>
+<%--            Fejlbesked når man ikke har penge nok, virker ikke--%>
             <p>${requestScope.notenoughmoney}</p>
+
         </c:if>
         <c:if test="${sessionScope.user == null}">
             <p>Du er ikke logget ind endnu. Log ind for at betale: <a

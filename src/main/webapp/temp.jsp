@@ -29,28 +29,6 @@
                 </tr>
                 </thead>
                 <tbody>
-
-                </tbody>
-            </table>
-        </div>
-
-
-        <br><br><br><br>
-
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">Fold ud</th>
-                    <th scope="col">Order Id</th>
-                    <th scope="col">Bruger Id</th>
-                    <th scope="col">Samlet pris</th>
-                    <th scope="col">Tidsstempel</th>
-                    <th scope="col">Status Id</th>
-                    <th scope="col">Fjern ordre</th>
-                </tr>
-                </thead>
-                <tbody>
                 <c:forEach var="orders" items="${sessionScope.orderlist}">
                     <form action="">
                         <tr>
@@ -113,10 +91,6 @@
         </div>
 
 
-        <br><br><br><br>
-        Den med knappen på næste række
-
-
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
@@ -169,9 +143,13 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-<%--                                            Vikrer ikke med nøglen, hvordan fiske de rigtige lister ud?--%>
-                                            <c:forEach var="orderlines" items="${sessionScope.orderlineListMap.get(${orders.order_id})}">
+                                                <%--                                            <c:forEach var="orderlines" items="${sessionScope.orderlinelist}">--%>
                                             <tr>
+                                                    <%--                                                    <td>${orderlines.orderline_id}</td>--%>
+                                                    <%--                                                    <td>${orderlines.order_id}</td>--%>
+                                                    <%--                                                    <td>${orderlines.quantity}</td>--%>
+                                                    <%--                                                    <td>${orderlines.buttomFlavor}</td>--%>
+                                                    <%--                                                    <td>${orderlines.toppingFlavor}</td>--%>
                                                 <td>1</td>
                                                 <td>1</td>
                                                 <td>1</td>
@@ -185,7 +163,7 @@
                                                 <td>1</td>
                                                 <td>1</td>
                                             </tr>
-                                                                                            </c:forEach>
+                                                <%--                                            </c:forEach>--%>
                                             </tbody>
                                         </table>
                                     </div>
@@ -199,40 +177,31 @@
         </div>
 
 
-        <br><br><br><br>
-
-
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th>
-<%--                        <div class="col">--%>
-                            <button type="button" style="width: 100%;">
-                                <table style="width: 100%; border: none">
-                                    <th scope="col">Order Id</th>
-                                    <th scope="col">Bruger Id</th>
-                                    <th scope="col">Samlet pris</th>
-                                    <th scope="col">Tidsstempel</th>
-                                    <th scope="col">Status Id</th>
-                                    <th scope="col">Fjern ordre</th>
-                                </table>
-                            </button>
-<%--                        </div>--%>
-                    </th>
+                    <th scope="col">Fold ud</th>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Bruger Id</th>
+                    <th scope="col">Samlet pris</th>
+                    <th scope="col">Tidsstempel</th>
+                    <th scope="col">Status Id</th>
+                    <th scope="col">Fjern ordre</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="orders" items="${sessionScope.orderlist}">
                     <form action="">
                         <tr>
+                                <%--                            <td colspan="7">--%>
                             <div class="col">
                                 <button type="button" class="btn btn-outline-success" data-bs-toggle="collapse"
                                         data-bs-target="#expand${orders.order_id}" aria-expanded="false"
                                         aria-controls="expand${orders.order_id}"
                                         style="width: 100%">
 
-                                    <table style="width: 100%; border: none">
+                                    <table>
                                         <td></td>
                                         <td>${orders.order_id}</td>
                                         <td>${orders.user_id}</td>
@@ -268,8 +237,7 @@
                                                 <%--                                                    <td>${orderlines.quantity}</td>--%>
                                                 <%--                                                    <td>${orderlines.buttomFlavor}</td>--%>
                                                 <%--                                                    <td>${orderlines.toppingFlavor}</td>--%>
-                                            <td>
-                                                1</td>
+                                            <td>1</td>
                                             <td>1</td>
                                             <td>1</td>
                                             <td>1</td>

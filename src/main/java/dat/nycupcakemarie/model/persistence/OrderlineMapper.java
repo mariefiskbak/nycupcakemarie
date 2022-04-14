@@ -1,12 +1,15 @@
 package dat.nycupcakemarie.model.persistence;
 
+import dat.nycupcakemarie.model.dtos.OrderDTO;
 import dat.nycupcakemarie.model.dtos.OrderlineDTO;
 import dat.nycupcakemarie.model.entities.User;
 import dat.nycupcakemarie.model.exceptions.DatabaseException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,6 +56,73 @@ public class OrderlineMapper {
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Could not insert orderline into database");
         }
+    }
+
+    public List<OrderlineDTO> getOrderlineDTOList() throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        List<OrderlineDTO> orderlineList = new ArrayList<>();
+
+        String sql = "SELECT * FROM cupcakemmp.orderline";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int orderline_id = rs.getInt("orderline_id");
+                    int order_id = rs.getInt("order_id");
+                    int quantity = rs.getInt("quantity");
+                    int buttom_id = rs.getInt("buttom_id");
+                    int topping_id = rs.getInt("topping_id");
+
+                    OrderlineDTO orderlineDTO = new OrderlineDTO(orderline_id, order_id, quantity, buttom_id, topping_id);
+                    orderlineList.add(orderlineDTO);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning af ordrelinjer fra databasen");
+        }
+        return orderlineList;
+
+    }
+
+    public Map<Integer, List<OrderlineDTO>> getOrderlineDTOListMap() throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        Map<Integer, List<OrderlineDTO>> orderlineListMap = new LinkedHashMap();
+        List<OrderlineDTO> orderlineDTOList = null;
+        int x = 0;
+
+        String sql = "SELECT * FROM cupcakemmp.orderline";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int orderline_id = rs.getInt("orderline_id");
+                    int order_id = rs.getInt("order_id");
+                    int quantity = rs.getInt("quantity");
+                    int buttom_id = rs.getInt("buttom_id");
+                    int topping_id = rs.getInt("topping_id");
+
+                    Integer orderId = order_id;
+
+                    //TODO: noget logik der får den til at kun at putte de linjer med samme ordrenummer i samme liste
+
+                    if(order_id != x) {
+                        orderlineDTOList = new ArrayList<>();
+                    }
+
+                    x = order_id;
+                    OrderlineDTO orderlineDTO = new OrderlineDTO(orderline_id, order_id, quantity, buttom_id, topping_id);
+                    orderlineDTOList.add(orderlineDTO);
+
+                    orderlineListMap.put(orderId, orderlineDTOList);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning af ordrelinjer fra databasen");
+        }
+        return orderlineListMap;
+
     }
 
 

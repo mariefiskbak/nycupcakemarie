@@ -40,11 +40,11 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <c:if test="${sessionScope.user.roleId == 1 }">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/orders.jsp">Ordrer</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/OrderServlet">Ordrer</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/CustomerListServlet">Kunder</a>
                     </c:if>
-                    <c:if test="${sessionScope.user != null }">
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/userpage.jsp">Min side</a>
+                    <c:if test="${sessionScope.user.roleId == 2 }">
+                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/OrderServlet">Min side</a>
                     </c:if>
                     <c:if test="${sessionScope.user == null }">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/login.jsp">Login</a>

@@ -26,6 +26,7 @@ public class CartServlet extends HttpServlet {
     public void init() throws ServletException {
         this.connectionPool = ApplicationStart.getConnectionPool();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -48,7 +49,7 @@ public class CartServlet extends HttpServlet {
         try {
             String orderlineIdString = request.getParameter("remove");
             orderlineId = Integer.parseInt(orderlineIdString);
-            if(orderlineId > 0){
+            if (orderlineId > 0) {
                 quantityUpdate = 0;
             }
         } catch (NumberFormatException e) {
@@ -56,18 +57,26 @@ public class CartServlet extends HttpServlet {
         }
 
 //        if(orderlineDTOMap.containsKey(orderlineId)) {
-            orderlineDTOMap.get(orderlineId).setQuantity(quantityUpdate);
-//        }
-        if(orderlineDTOMap.get(orderlineId).getQuantity() == 0) {
+        if(quantityUpdate > 0){
+        orderlineDTOMap.get(orderlineId).setQuantity(quantityUpdate);
+        }
+        else{
             orderlineDTOMap.remove(orderlineId);
         }
+//        }
+        /*if (orderlineDTOMap.get(orderlineId).getQuantity() == 0) {
+            orderlineDTOMap.remove(orderlineId);
+        }*/
 
         session.setAttribute("orderlineDTOMap", orderlineDTOMap);
 
 //        request.getRequestDispatcher("CartDTOListServlet").forward(request, response);
 
-        if(orderlineDTOMap.size() == 0) {
+        if (orderlineDTOMap.size() == 0) {
             request.getRequestDispatcher("emptycart.jsp").forward(request, response);
+            List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");
+            cartDTOList.clear();
+            session.setAttribute("cartDTOList", cartDTOList);
         }
 
         // printer cartDTOliste fra orderlineDTOMap
@@ -85,11 +94,16 @@ public class CartServlet extends HttpServlet {
 
                 cartDTOList.add(new CartDTO(buttomObject, toppingObject, quantity));
                 int total = 0;
+                int totalCupcakeQuantity = 0;
                 for (CartDTO cartDTO : cartDTOList) {
                     total += cartDTO.getPrice();
+                    totalCupcakeQuantity += cartDTO.getQuantity();
                 }
+
+
                 session.setAttribute("cartDTOList", cartDTOList);
                 session.setAttribute("total", total);
+                session.setAttribute("totalCupcakeQuantity", totalCupcakeQuantity);
 
             } catch (DatabaseException e) {
                 e.printStackTrace();

@@ -1,7 +1,6 @@
 package dat.nycupcakemarie.control;
 
 import dat.nycupcakemarie.model.config.ApplicationStart;
-import dat.nycupcakemarie.model.dtos.CartDTO;
 import dat.nycupcakemarie.model.dtos.CustomerDTO;
 import dat.nycupcakemarie.model.exceptions.DatabaseException;
 import dat.nycupcakemarie.model.persistence.ConnectionPool;
@@ -27,20 +26,20 @@ public class CustomerListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-//        HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 //        List<CustomerDTO> customerDTOList = (List<CustomerDTO>) session.getAttribute("customerDTOList");
 
         UserMapper userMapper = new UserMapper(connectionPool);
         List<CustomerDTO> customerDTOList = null;
 
         try {
-            customerDTOList = userMapper.getUser();
+            customerDTOList = userMapper.getCustomerDTOList();
         } catch (DatabaseException e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
             request.setAttribute("fejlbesked", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
-        request.setAttribute("customerlist", customerDTOList);
+        session.setAttribute("customerlist", customerDTOList);
 
         request.getRequestDispatcher("customers.jsp").forward(request, response);
     }

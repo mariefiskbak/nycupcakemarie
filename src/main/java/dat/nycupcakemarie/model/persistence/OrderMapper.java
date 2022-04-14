@@ -1,16 +1,11 @@
 package dat.nycupcakemarie.model.persistence;
 
 import dat.nycupcakemarie.model.dtos.OrderDTO;
-import dat.nycupcakemarie.model.entities.Cupcakebuttom;
-import dat.nycupcakemarie.model.entities.User;
 import dat.nycupcakemarie.model.exceptions.DatabaseException;
 
-import javax.xml.transform.Result;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,18 +25,16 @@ public class OrderMapper {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                orderId = rs.getInt("maxorderid");
-              }
+                    orderId = rs.getInt("maxorderid");
+                }
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new DatabaseException(ex, "Fejl under indlæsning af orderId fra databasen");
         }
         return orderId;
     }
 
-    public void insertOrderToDB(int order_id, int user_id, int total_price, int timestamp, int status_id) throws DatabaseException {
+    public void insertOrderToDB(int order_id, int user_id, int total_price, Timestamp timestamp, int status_id) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
         OrderDTO orderDTO;
 
@@ -69,6 +62,33 @@ public class OrderMapper {
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Could not insert username into database");
         }
+    }
+
+    public List<OrderDTO> getOrderDTOList() throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        List<OrderDTO> orderList = new ArrayList<>();
+
+        String sql = "SELECT * FROM cupcakemmp.order";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int order_id = rs.getInt("order_id");
+                    int user_id = rs.getInt("user_id");
+                    int total_price = rs.getInt("total_price");
+                    Timestamp timestamp = rs.getTimestamp("timestamp");
+                    int status_id = rs.getInt("status_id");
+
+                    OrderDTO orderDTO = new OrderDTO(order_id, user_id, total_price, timestamp, status_id);
+                    orderList.add(orderDTO);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning af ordrer fra databasen");
+        }
+        return orderList;
+
     }
 
 }

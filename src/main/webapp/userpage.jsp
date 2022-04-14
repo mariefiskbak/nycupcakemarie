@@ -27,6 +27,8 @@
             <br>
             <br>
 
+
+
             <c:if test="${sessionScope.user.roleId == 1}">
                 <p>Rolle: administrator.</p>
             </c:if>

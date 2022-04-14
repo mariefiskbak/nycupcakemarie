@@ -123,7 +123,7 @@ public class UserMapper implements IUserMapper {
         return user;
     }
 
-    public List<CustomerDTO> getUser() throws DatabaseException {
+    public List<CustomerDTO> getCustomerDTOList() throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
         List<CustomerDTO> userList = new ArrayList<>();

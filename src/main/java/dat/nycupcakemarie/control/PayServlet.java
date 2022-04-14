@@ -1,6 +1,8 @@
 package dat.nycupcakemarie.control;
 
+import com.mysql.cj.result.LocalDateTimeValueFactory;
 import dat.nycupcakemarie.model.config.ApplicationStart;
+import dat.nycupcakemarie.model.dtos.CartDTO;
 import dat.nycupcakemarie.model.dtos.OrderlineDTO;
 import dat.nycupcakemarie.model.entities.User;
 import dat.nycupcakemarie.model.exceptions.DatabaseException;
@@ -13,6 +15,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(name = "PayServlet", value = "/PayServlet")
@@ -50,8 +55,10 @@ public class PayServlet extends HttpServlet {
 
                 //TODO: ordren skal i databasen (skal totalprisen væk fra ordretabellen)
                 //TODO: problemet er at ordreId skal i ordretabellen, før ordrelinjerne kan komme i
+//                Timestamp ts = new Timestamp(10000);
+//                LocalDateTime localDateTime = new LocalDateTimeValueFactory();
                 OrderMapper orderMapper = new OrderMapper(connectionPool);
-                orderMapper.insertOrderToDB(orderId, userId, total, 121212, 1);
+                orderMapper.insertOrderToDB(orderId, userId, total, Timestamp.valueOf(LocalDateTime.now()), 1);
 
 
                 //TODO:  ordrelinjerne skal i databasen og (hentes fra mappet?)
@@ -64,7 +71,21 @@ public class PayServlet extends HttpServlet {
 
                 //TODO: orderId'et skal fornys og (sker allerede, hvorfor? pga AI?)
 
+                //TODO: Ordren + linjer skal ses på kundens side fra DB
+                //TODO: Ordrene + linjer skal ses på admins side fra DB
+
                 //TODO: indkøbskurven skal renses
+                orderlineDTOMap.clear();
+                List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");
+                cartDTOList.clear();
+                session.setAttribute("cartDTOList", cartDTOList);
+                int totalZero = 0;
+                session.setAttribute("total", totalZero);
+                session.setAttribute("totalCupcakeQuantity", totalZero);
+
+
+
+
 
 
             } catch (DatabaseException e) {

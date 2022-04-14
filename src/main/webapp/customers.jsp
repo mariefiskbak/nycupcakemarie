@@ -30,7 +30,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="customers" items="${requestScope.customerlist}">
+                <c:forEach var="customers" items="${sessionScope.customerlist}">
                     <form action="DepositServlet">
                         <tr>
                             <td>${customers.user_id}</td>

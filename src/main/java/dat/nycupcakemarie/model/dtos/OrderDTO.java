@@ -1,15 +1,15 @@
 package dat.nycupcakemarie.model.dtos;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class OrderDTO {
 private int order_id;
 private int user_id;
 private int total_price;
-private int timestamp;
+private Timestamp timestamp;
 private int status_id;
 
-    public OrderDTO(int order_id, int user_id, int total_price, int timestamp, int status_id) {
+    public OrderDTO(int order_id, int user_id, int total_price, Timestamp timestamp, int status_id) {
         this.order_id = order_id;
         this.user_id = user_id;
         this.total_price = total_price;
@@ -41,11 +41,11 @@ private int status_id;
         this.total_price = total_price;
     }
 
-    public int getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(int timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 

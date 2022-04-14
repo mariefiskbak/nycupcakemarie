@@ -49,11 +49,16 @@ public class CartDTOListServlet extends HttpServlet {
 
                 cartDTOList.add(new CartDTO(buttomObject, toppingObject, quantity));
                 int total = 0;
+                int totalCupcakeQuantity = 0;
                 for (CartDTO cartDTO : cartDTOList) {
                     total += cartDTO.getPrice();
+                    totalCupcakeQuantity += cartDTO.getQuantity();
+
                 }
                 session.setAttribute("cartDTOList", cartDTOList);
                 session.setAttribute("total", total);
+                session.setAttribute("totalCupcakeQuantity", totalCupcakeQuantity);
+
 
             } catch (DatabaseException e) {
                 e.printStackTrace();
