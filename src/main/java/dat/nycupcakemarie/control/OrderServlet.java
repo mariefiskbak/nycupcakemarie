@@ -45,8 +45,10 @@ public class OrderServlet extends HttpServlet {
         try {
 //            orderDTOList = orderMapper.getOrderDTOList();
             orderDTOList = orderMapper.getJoinedOrderDTOList();
-            orderlineDTOList = orderlineMapper.getOrderlineDTOList();
-            orderlineListMap = orderlineMapper.getOrderlineDTOListMap();
+//            orderlineDTOList = orderlineMapper.getOrderlineDTOList();
+            orderlineDTOList = orderlineMapper.getJoinedOrderlineDTOList();
+//            orderlineListMap = orderlineMapper.getOrderlineDTOListMap();
+            orderlineListMap = orderlineMapper.getJoinedOrderlineDTOListMap();
         } catch (DatabaseException e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
             request.setAttribute("fejlbesked", e.getMessage());

@@ -15,6 +15,8 @@ public class OrderlineDTO {
     private ConnectionPool connectionPool;
     private String buttomFlavor;
     private String toppingFlavor;
+    private String buttom;
+    private String topping;
 
     public OrderlineDTO(int orderline_id, int order_id, int quantity, int buttom_id, int topping_id) {
         this.orderline_id = orderline_id;
@@ -30,6 +32,22 @@ public class OrderlineDTO {
 //        } catch (DatabaseException e) {
 //            e.printStackTrace();
 //        }
+    }
+
+    public OrderlineDTO(int orderline_id, int order_id, int quantity, String buttom, String topping) {
+        this.orderline_id = orderline_id;
+        this.order_id = order_id;
+        this.quantity = quantity;
+        this.buttom = buttom;
+        this.topping = topping;
+    }
+
+    public String getButtom() {
+        return buttom;
+    }
+
+    public String getTopping() {
+        return topping;
     }
 
     public int getOrderline_id() {

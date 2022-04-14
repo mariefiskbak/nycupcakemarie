@@ -85,6 +85,77 @@ public class OrderlineMapper {
 
     }
 
+    public List<OrderlineDTO> getJoinedOrderlineDTOList() throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        List<OrderlineDTO> orderlineList = new ArrayList<>();
+
+        String sql = "SELECT cupcakemmp.orderline.orderline_id, cupcakemmp.orderline.order_id, cupcakemmp.orderline.quantity, cupcakemmp.cupcakebuttom.flavor AS buttom, cupcakemmp.cupcaketopping.flavor AS topping FROM cupcakemmp.orderline INNER JOIN cupcakemmp.cupcakebuttom ON cupcakemmp.orderline.buttom_id=cupcakemmp.cupcakebuttom.buttom_id INNER JOIN cupcakemmp.cupcaketopping ON cupcakemmp.orderline.topping_id=cupcakemmp.cupcaketopping.topping_id";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int orderline_id = rs.getInt("orderline_id");
+                    int order_id = rs.getInt("order_id");
+                    int quantity = rs.getInt("quantity");
+                    String buttom = rs.getString("buttom");
+                    String topping = rs.getString("topping");
+
+                    OrderlineDTO orderlineDTO = new OrderlineDTO(orderline_id, order_id, quantity, buttom, topping);
+                    orderlineList.add(orderlineDTO);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning af ordrelinjer fra databasen");
+        }
+        return orderlineList;
+
+    }
+
+    public Map<Integer, List<OrderlineDTO>> getJoinedOrderlineDTOListMap() throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        Map<Integer, List<OrderlineDTO>> orderlineListMap = new LinkedHashMap();
+        List<OrderlineDTO> orderlineDTOList = null;
+        int x = 0;
+
+        String sql = "SELECT cupcakemmp.orderline.orderline_id, cupcakemmp.orderline.order_id, cupcakemmp.orderline.quantity, cupcakemmp.cupcakebuttom.flavor AS buttom, cupcakemmp.cupcaketopping.flavor AS topping FROM cupcakemmp.orderline INNER JOIN cupcakemmp.cupcakebuttom ON cupcakemmp.orderline.buttom_id=cupcakemmp.cupcakebuttom.buttom_id INNER JOIN cupcakemmp.cupcaketopping ON cupcakemmp.orderline.topping_id=cupcakemmp.cupcaketopping.topping_id";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int orderline_id = rs.getInt("orderline_id");
+                    int order_id = rs.getInt("order_id");
+                    int quantity = rs.getInt("quantity");
+                    String buttom = rs.getString("buttom");
+                    String topping = rs.getString("topping");
+
+
+
+                    Integer orderId = order_id;
+
+                    //DONE: noget logik der får den til at kun at putte de linjer med samme ordrenummer i samme liste
+
+                    if(order_id != x) {
+                        orderlineDTOList = new ArrayList<>();
+                    }
+
+                    x = order_id;
+                    OrderlineDTO orderlineDTO = new OrderlineDTO(orderline_id, order_id, quantity, buttom, topping);
+                    orderlineDTOList.add(orderlineDTO);
+
+                    orderlineListMap.put(orderId, orderlineDTOList);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning af ordrelinjer fra databasen");
+        }
+        return orderlineListMap;
+
+    }
+
+
+
     public Map<Integer, List<OrderlineDTO>> getOrderlineDTOListMap() throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -105,7 +176,7 @@ public class OrderlineMapper {
 
                     Integer orderId = order_id;
 
-                    //TODO: noget logik der får den til at kun at putte de linjer med samme ordrenummer i samme liste
+                    //DONE: noget logik der får den til at kun at putte de linjer med samme ordrenummer i samme liste
 
                     if(order_id != x) {
                         orderlineDTOList = new ArrayList<>();

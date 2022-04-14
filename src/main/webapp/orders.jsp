@@ -190,8 +190,8 @@
                                                     <td>${orderlines.orderline_id}</td>
                                                     <td>${orderlines.order_id}</td>
                                                     <td>${orderlines.quantity}</td>
-                                                    <td>${orderlines.buttom_id}</td>
-                                                    <td>${orderlines.topping_id}</td>
+                                                    <td>${orderlines.buttom}</td>
+                                                    <td>${orderlines.topping}</td>
                                                 </tr>
                                             </c:forEach>
                                             </tbody>
