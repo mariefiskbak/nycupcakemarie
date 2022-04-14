@@ -13,6 +13,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -39,6 +40,8 @@ public class OrderServlet extends HttpServlet {
         List<OrderlineDTO> orderlineDTOList = null;
         Map<Integer, List<OrderlineDTO>> orderlineListMap = null;
 
+        List<List<OrderlineDTO>> listOfLists = new ArrayList<>();
+
         try {
             orderDTOList = orderMapper.getOrderDTOList();
             orderlineDTOList = orderlineMapper.getOrderlineDTOList();
@@ -51,8 +54,16 @@ public class OrderServlet extends HttpServlet {
         session.setAttribute("orderlist", orderDTOList);
         session.setAttribute("orderlinelist", orderlineDTOList);
 
+        for (Integer key : orderlineListMap.keySet()) {
+            String orderId = "" + key;
+            session.setAttribute(orderId, orderlineListMap.get(key));
+
+            listOfLists.add(orderlineListMap.get(key));
+
+        }
         session.setAttribute("orderlineListMap", orderlineListMap);
 
+        session.setAttribute("listoflists", listOfLists);
 
  //       User user = (User) session.getAttribute("user");
 //        if(user.getRoleId() == 1 ) {

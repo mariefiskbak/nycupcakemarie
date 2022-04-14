@@ -22,14 +22,14 @@ public class OrderlineDTO {
         this.quantity = quantity;
         this.buttom_id = buttom_id;
         this.topping_id = topping_id;
-        ButtomMapMapper buttomMapMapper = new ButtomMapMapper(connectionPool);
-        ToppingMapMapper toppingMapMapper = new ToppingMapMapper(connectionPool);
-        try {
-            buttomFlavor = buttomMapMapper.getButtomObjectMap().get(this.buttom_id).getFlavor();
-            toppingFlavor = toppingMapMapper.getCupcakeToppingObjectMap().get(this.topping_id).getFlavor();
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-        }
+//        ButtomMapMapper buttomMapMapper = new ButtomMapMapper(connectionPool);
+//        ToppingMapMapper toppingMapMapper = new ToppingMapMapper(connectionPool);
+//        try {
+//            buttomFlavor = buttomMapMapper.getButtomObjectMap().get(this.buttom_id).getFlavor();
+//            toppingFlavor = toppingMapMapper.getCupcakeToppingObjectMap().get(this.topping_id).getFlavor();
+//        } catch (DatabaseException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public int getOrderline_id() {

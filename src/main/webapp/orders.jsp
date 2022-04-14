@@ -131,22 +131,29 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="orders" items="${sessionScope.orderlist}">
+                    <%--                    <c:forEach var="orderlinelist" items="${sessionScope.listoflists}">--%>
+                    <%--                <c:forEach var="orders" items="${sessionScope.orderlist}">--%>
+
+                <c:forEach var="orderlinelist" items="${sessionScope.listoflists}" varStatus="orders">
+<%--                    <tr>--%>
+<%--                        <td>${orderlinelist}</td>--%>
+<%--                        <td>${sessionScope.orderlist[orders.index]}</td>--%>
+<%--                        <td>${sessionScope.orderlist[orders.index].order_id}</td>--%>
+<%--                    </tr>--%>
+                    <%--                    </c:forEach>--%>
                     <form action="">
                         <tr>
                             <td></td>
-                            <td>${orders.order_id}</td>
-                            <td>${orders.user_id}</td>
-                            <td>${orders.total_price} kr</td>
-                            <td>${orders.timestamp}</td>
-                            <td>${orders.status_id}</td>
+                            <td>${sessionScope.orderlist[orders.index].order_id}</td>
+                            <td>${sessionScope.orderlist[orders.index].user_id}</td>
+                            <td>${sessionScope.orderlist[orders.index].total_price} kr</td>
+                            <td>${sessionScope.orderlist[orders.index].timestamp} kr</td>
+                            <td>${sessionScope.orderlist[orders.index].status_id}</td>
                             <td>
-
                                 <div class="col">
                                     <button type="submit" class="btn btn-outline-danger" name="remove_order"
-                                            value="${orders.order_id}">Slet ordre
+                                            value="${sessionScope.orderlist[orders.index].order_id}">Slet ordre
                                     </button>
-
                                 </div>
                             </td>
                         </tr>
@@ -154,10 +161,12 @@
                             <td colspan="7">
                                 <div class="col">
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="collapse"
-                                            data-bs-target="#expand${orders.order_id}" aria-expanded="false"
-                                            aria-controls="expand${orders.order_id}">Se ordrelinjer
+                                            data-bs-target="#expand${sessionScope.orderlist[orders.index].order_id}"
+                                            aria-expanded="false"
+                                            aria-controls="expand${sessionScope.orderlist[orders.index].order_id}">Se
+                                        ordrelinjer
                                     </button>
-                                    <div class="collapse" id="expand${orders.order_id}">
+                                    <div class="collapse" id="expand${sessionScope.orderlist[orders.index].order_id}">
                                         <table class="table table-success table-striped table-sm">
                                             <thead>
                                             <tr>
@@ -169,23 +178,16 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-<%--                                            Vikrer ikke med nøglen, hvordan fiske de rigtige lister ud?--%>
-                                            <c:forEach var="orderlines" items="${sessionScope.orderlineListMap.get(${orders.order_id})}">
-                                            <tr>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                            </tr>
-                                                                                            </c:forEach>
+                                                <%--                                            Vikrer ikke med nøglen, hvordan fiske de rigtige lister ud?--%>
+                                            <c:forEach var="orderlines" items="${orderlinelist}">
+                                                <tr>
+                                                    <td>${orderlines.orderline_id}</td>
+                                                    <td>${orderlines.order_id}</td>
+                                                    <td>${orderlines.quantity}</td>
+                                                    <td>${orderlines.buttom_id}</td>
+                                                    <td>${orderlines.topping_id}</td>
+                                                </tr>
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>
@@ -194,6 +196,7 @@
                         </tr>
                     </form>
                 </c:forEach>
+                    <%--                </c:forEach>--%>
                 </tbody>
             </table>
         </div>
@@ -202,23 +205,23 @@
         <br><br><br><br>
 
 
-        <div class="table-responsive">
+        <%--<div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th>
-<%--                        <div class="col">--%>
-                            <button type="button" style="width: 100%;">
-                                <table style="width: 100%; border: none">
-                                    <th scope="col">Order Id</th>
-                                    <th scope="col">Bruger Id</th>
-                                    <th scope="col">Samlet pris</th>
-                                    <th scope="col">Tidsstempel</th>
-                                    <th scope="col">Status Id</th>
-                                    <th scope="col">Fjern ordre</th>
-                                </table>
-                            </button>
-<%--                        </div>--%>
+                            &lt;%&ndash;                        <div class="col">&ndash;%&gt;
+                        <button type="button" style="width: 100%;">
+                            <table style="width: 100%; border: none">
+                                <th scope="col">Order Id</th>
+                                <th scope="col">Bruger Id</th>
+                                <th scope="col">Samlet pris</th>
+                                <th scope="col">Tidsstempel</th>
+                                <th scope="col">Status Id</th>
+                                <th scope="col">Fjern ordre</th>
+                            </table>
+                        </button>
+                            &lt;%&ndash;                        </div>&ndash;%&gt;
                     </th>
                 </tr>
                 </thead>
@@ -261,15 +264,16 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <%--                                            <c:forEach var="orderlines" items="${sessionScope.orderlinelist}">--%>
+                                            &lt;%&ndash;                                            <c:forEach var="orderlines" items="${sessionScope.orderlinelist}">&ndash;%&gt;
                                         <tr>
-                                                <%--                                                    <td>${orderlines.orderline_id}</td>--%>
-                                                <%--                                                    <td>${orderlines.order_id}</td>--%>
-                                                <%--                                                    <td>${orderlines.quantity}</td>--%>
-                                                <%--                                                    <td>${orderlines.buttomFlavor}</td>--%>
-                                                <%--                                                    <td>${orderlines.toppingFlavor}</td>--%>
+                                                &lt;%&ndash;                                                    <td>${orderlines.orderline_id}</td>&ndash;%&gt;
+                                                &lt;%&ndash;                                                    <td>${orderlines.order_id}</td>&ndash;%&gt;
+                                                &lt;%&ndash;                                                    <td>${orderlines.quantity}</td>&ndash;%&gt;
+                                                &lt;%&ndash;                                                    <td>${orderlines.buttomFlavor}</td>&ndash;%&gt;
+                                                &lt;%&ndash;                                                    <td>${orderlines.toppingFlavor}</td>&ndash;%&gt;
                                             <td>
-                                                1</td>
+                                                1
+                                            </td>
                                             <td>1</td>
                                             <td>1</td>
                                             <td>1</td>
@@ -282,18 +286,18 @@
                                             <td>1</td>
                                             <td>1</td>
                                         </tr>
-                                            <%--                                            </c:forEach>--%>
+                                            &lt;%&ndash;                                            </c:forEach>&ndash;%&gt;
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                                <%--                            </td>--%>
+                                &lt;%&ndash;                            </td>&ndash;%&gt;
                         </tr>
                     </form>
                 </c:forEach>
                 </tbody>
             </table>
-        </div>
+        </div>--%>
 
     </jsp:body>
 
