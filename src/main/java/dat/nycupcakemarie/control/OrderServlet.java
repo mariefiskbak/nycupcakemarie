@@ -43,7 +43,8 @@ public class OrderServlet extends HttpServlet {
         List<List<OrderlineDTO>> listOfLists = new ArrayList<>();
 
         try {
-            orderDTOList = orderMapper.getOrderDTOList();
+//            orderDTOList = orderMapper.getOrderDTOList();
+            orderDTOList = orderMapper.getJoinedOrderDTOList();
             orderlineDTOList = orderlineMapper.getOrderlineDTOList();
             orderlineListMap = orderlineMapper.getOrderlineDTOListMap();
         } catch (DatabaseException e) {
