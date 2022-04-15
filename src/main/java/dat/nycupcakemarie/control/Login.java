@@ -34,8 +34,10 @@ public class Login extends HttpServlet
         response.sendRedirect("index.jsp");
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-    {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+//        Logger.getLogger("web").log(Level.INFO, "");
+
+
         response.setContentType("text/html");
         HttpSession session = request.getSession();
         session.setAttribute("user", null); // adding empty user object to session scope
@@ -49,7 +51,9 @@ public class Login extends HttpServlet
             user = userMapper.login(email, password);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
-            request.getRequestDispatcher("UserpageServlet").forward(request, response);
+//            Vil gerne kalde servletten, så ordrelisten printes, men virker ikke?
+//            request.getRequestDispatcher("UserpageServlet").forward(request, response);
+           request.getRequestDispatcher("userpage.jsp").forward(request, response);
         }
         catch (DatabaseException e)
         {
