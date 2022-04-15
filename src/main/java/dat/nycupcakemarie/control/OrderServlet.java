@@ -33,48 +33,42 @@ public class OrderServlet extends HttpServlet {
         response.setContentType("text/html");
         HttpSession session = request.getSession();
 
-        OrderMapper orderMapper = new OrderMapper(connectionPool);
-        List<OrderDTO> orderDTOList = null;
+            OrderMapper orderMapper = new OrderMapper(connectionPool);
+            List<OrderDTO> orderDTOList = null;
 
-        OrderlineMapper orderlineMapper = new OrderlineMapper(connectionPool);
-        List<OrderlineDTO> orderlineDTOList = null;
-        Map<Integer, List<OrderlineDTO>> orderlineListMap = null;
+            OrderlineMapper orderlineMapper = new OrderlineMapper(connectionPool);
+            List<OrderlineDTO> orderlineDTOList = null;
+            Map<Integer, List<OrderlineDTO>> orderlineListMap = null;
 
-        List<List<OrderlineDTO>> listOfLists = new ArrayList<>();
+            List<List<OrderlineDTO>> listOfLists = new ArrayList<>();
 
-        try {
+            try {
 //            orderDTOList = orderMapper.getOrderDTOList();
-            orderDTOList = orderMapper.getJoinedOrderDTOList();
+                orderDTOList = orderMapper.getJoinedOrderDTOList();
 //            orderlineDTOList = orderlineMapper.getOrderlineDTOList();
-            orderlineDTOList = orderlineMapper.getJoinedOrderlineDTOList();
+                orderlineDTOList = orderlineMapper.getJoinedOrderlineDTOList();
 //            orderlineListMap = orderlineMapper.getOrderlineDTOListMap();
-            orderlineListMap = orderlineMapper.getJoinedOrderlineDTOListMap();
-        } catch (DatabaseException e) {
-            Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
-            request.setAttribute("fejlbesked", e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
-        session.setAttribute("orderlist", orderDTOList);
-        session.setAttribute("orderlinelist", orderlineDTOList);
+                orderlineListMap = orderlineMapper.getJoinedOrderlineDTOListMap();
+            } catch (DatabaseException e) {
+                Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
+                request.setAttribute("fejlbesked", e.getMessage());
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+            session.setAttribute("orderlist", orderDTOList);
+            session.setAttribute("orderlinelist", orderlineDTOList);
 
-        for (Integer key : orderlineListMap.keySet()) {
-            String orderId = "" + key;
-            session.setAttribute(orderId, orderlineListMap.get(key));
+            for (Integer key : orderlineListMap.keySet()) {
+                String orderId = "" + key;
+                session.setAttribute(orderId, orderlineListMap.get(key));
 
-            listOfLists.add(orderlineListMap.get(key));
+                listOfLists.add(orderlineListMap.get(key));
 
-        }
-        session.setAttribute("orderlineListMap", orderlineListMap);
+            }
+            session.setAttribute("orderlineListMap", orderlineListMap);
 
-        session.setAttribute("listoflists", listOfLists);
+            session.setAttribute("listoflists", listOfLists);
 
- //       User user = (User) session.getAttribute("user");
-//        if(user.getRoleId() == 1 ) {
-//        request.getRequestDispatcher("orders.jsp").forward(request, response);
-//        }
-//        request.getRequestDispatcher("userpage.jsp").forward(request, response);
-
-        request.getRequestDispatcher("orders.jsp").forward(request, response);
+            request.getRequestDispatcher("orders.jsp").forward(request, response);
 
     }
 

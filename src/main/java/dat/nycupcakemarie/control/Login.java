@@ -49,7 +49,7 @@ public class Login extends HttpServlet
             user = userMapper.login(email, password);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
-            request.getRequestDispatcher("userpage.jsp").forward(request, response);
+            request.getRequestDispatcher("UserpageServlet").forward(request, response);
         }
         catch (DatabaseException e)
         {

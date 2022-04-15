@@ -21,108 +21,6 @@
                 <tr>
                     <th scope="col">Fold ud</th>
                     <th scope="col">Order Id</th>
-                    <th scope="col">Bruger Id</th>
-                    <th scope="col">Samlet pris</th>
-                    <th scope="col">Tidsstempel</th>
-                    <th scope="col">Status Id</th>
-                    <th scope="col">Fjern ordre</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-        </div>
-
-
-        <br><br><br><br>
-
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">Fold ud</th>
-                    <th scope="col">Order Id</th>
-                    <th scope="col">Bruger Id</th>
-                    <th scope="col">Samlet pris</th>
-                    <th scope="col">Tidsstempel</th>
-                    <th scope="col">Status Id</th>
-                    <th scope="col">Fjern ordre</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="orders" items="${sessionScope.orderlist}">
-                    <form action="">
-                        <tr>
-                            <td>
-                                <div class="col">
-                                    <button type="button" class="btn btn-outline-success" data-bs-toggle="collapse"
-                                            data-bs-target="#expand${orders.order_id}" aria-expanded="false"
-                                            aria-controls="expand${orders.order_id}">Se
-                                    </button>
-                                    <div class="collapse" id="expand${orders.order_id}">
-                                        <table class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th scope="col">Orderlinje Id</th>
-                                                <th scope="col">Order Id</th>
-                                                <th scope="col">Antal</th>
-                                                <th scope="col">Bund</th>
-                                                <th scope="col">Top</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                <%--                                            <c:forEach var="orderlines" items="${sessionScope.orderlinelist}">--%>
-                                            <tr>
-                                                    <%--                                                    <td>${orderlines.orderline_id}</td>--%>
-                                                    <%--                                                    <td>${orderlines.order_id}</td>--%>
-                                                    <%--                                                    <td>${orderlines.quantity}</td>--%>
-                                                    <%--                                                    <td>${orderlines.buttomFlavor}</td>--%>
-                                                    <%--                                                    <td>${orderlines.toppingFlavor}</td>--%>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                            </tr>
-                                                <%--                                            </c:forEach>--%>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>${orders.order_id}</td>
-                            <td>${orders.user_id}</td>
-                            <td>${orders.total_price} kr</td>
-                            <td>${orders.timestamp}</td>
-                            <td>${orders.status_id}</td>
-                            <td>
-
-                                <div class="col">
-                                    <button type="submit" class="btn btn-outline-danger" name="remove_order"
-                                            value="${orders.order_id}">Slet
-                                    </button>
-
-                                </div>
-                            </td>
-                        </tr>
-                    </form>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
-
-
-        <br><br><br><br>
-        Den med knappen på næste række
-
-
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">Fold ud</th>
-                    <th scope="col">Order Id</th>
                     <th scope="col">Tidsstempel</th>
                     <th scope="col">Bruger Id</th>
                     <th scope="col">Fornavn</th>
@@ -134,16 +32,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <%--                    <c:forEach var="orderlinelist" items="${sessionScope.listoflists}">--%>
-                    <%--                <c:forEach var="orders" items="${sessionScope.orderlist}">--%>
-
                 <c:forEach var="orderlinelist" items="${sessionScope.listoflists}" varStatus="orders">
-<%--                    <tr>--%>
-<%--                        <td>${orderlinelist}</td>--%>
-<%--                        <td>${sessionScope.orderlist[orders.index]}</td>--%>
-<%--                        <td>${sessionScope.orderlist[orders.index].order_id}</td>--%>
-<%--                    </tr>--%>
-                    <%--                    </c:forEach>--%>
                     <form action="">
                         <tr>
                             <td></td>
@@ -184,15 +73,25 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                <%--                                            Vikrer ikke med nøglen, hvordan fiske de rigtige lister ud?--%>
                                             <c:forEach var="orderlines" items="${orderlinelist}">
+<%--                                                <c:set var = "orderline" scope = "session" value = "${orderlines}"/>--%>
+<%--                                                <c:if test = "${orderline.order_id == sessionScope.orderlist[orders.index].order_id}">--%>
+<%--                                                <c:if test = "${orderline.order_id eq sessionScope.orderlist[orders.index].order_id}">--%>
+
+<%--                                                <c:if test="${sessionScope.orderlist[orders.index].order_id == orderlines.order_id}">--%>
                                                 <tr>
+<%--                                                    <td><c:out value="${orderline.orderline_id}"/></td>--%>
+<%--                                                    <td><c:out value="${orderline.order_id}"/></td>--%>
+<%--                                                    <td><c:out value="${orderline.quantity}"/></td>--%>
+<%--                                                    <td><c:out value="${orderline.buttom}"/></td>--%>
+<%--                                                    <td><c:out value="${orderline.topping}"/></td>--%>
                                                     <td>${orderlines.orderline_id}</td>
                                                     <td>${orderlines.order_id}</td>
                                                     <td>${orderlines.quantity}</td>
                                                     <td>${orderlines.buttom}</td>
                                                     <td>${orderlines.topping}</td>
                                                 </tr>
+<%--                                                </c:if>--%>
                                             </c:forEach>
                                             </tbody>
                                         </table>
@@ -202,7 +101,6 @@
                         </tr>
                     </form>
                 </c:forEach>
-                    <%--                </c:forEach>--%>
                 </tbody>
             </table>
         </div>
@@ -213,12 +111,12 @@
 
         <div class="table-responsive">
             <table class="table table-striped table-hover">
-                <thead>
+                <thead style="margin-bottom: 10rem">
                 <tr>
                     <th>
                             <%--                        <div class="col">--%>
-                        <button type="button" style="width: 100%;">
-                            <table style="width: 100%; border: none">
+<%--                        <button type="button" style="width: 100%;">--%>
+                            <table style="width: 100%; border: none; ">
                                 <th scope="col">Order Id</th>
                                 <th scope="col">Bruger Id</th>
                                 <th scope="col">Samlet pris</th>
@@ -226,16 +124,25 @@
                                 <th scope="col">Status Id</th>
                                 <th scope="col">Fjern ordre</th>
                             </table>
-                        </button>
+<%--                        </button>--%>
                             <%--                        </div>--%>
                     </th>
                 </tr>
                 </thead>
+                <br>
                 <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 <c:forEach var="orders" items="${sessionScope.orderlist}">
-                    <form action="">
-                        <tr>
-                            <div class="col">
+<%--                    <form action="">--%>
+                    <tr>
+<%--                            <div class="col">--%>
                                 <button type="button" class="btn btn-outline-success" data-bs-toggle="collapse"
                                         data-bs-target="#expand${orders.order_id}" aria-expanded="false"
                                         aria-controls="expand${orders.order_id}"
@@ -296,10 +203,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+<%--                            </div>--%>
                                 <%--                            </td>--%>
                         </tr>
-                    </form>
+<%--                    </form>--%>
                 </c:forEach>
                 </tbody>
             </table>

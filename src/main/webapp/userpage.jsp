@@ -19,14 +19,38 @@
 
 
             <br>
-            <strong style="font-size: 18px;">Velkommen
-                tilbage: ${sessionScope.user.firstname} ${sessionScope.user.lastname}</strong>
-            <br>
-            <br>
+            <p style="font-size: 18px;">Velkommen
+                tilbage ${sessionScope.user.firstname} ${sessionScope.user.lastname}</p>
             <p style="font-size:18px;">Din nuværende saldo er: ${sessionScope.user.balance} kr.</p>
             <br>
             <br>
 
+            <h2>Dine tidligere ordrer</h2>
+            <br>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Ordre Id</th>
+                        <th scope="col">Dato</th>
+                        <th scope="col">Antal cupcakes i alt</th>
+                        <th scope="col">Pris i alt</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="order" items="${sessionScope.userorderlist}">
+                        <form action="DepositServlet">
+                            <tr>
+                                <td>${order.order_id}</td>
+                                <td>${order.timestamp}</td>
+                                <td>${order.quantity} stk</td>
+                                <td>${order.total_price} kr</td>
+                            </tr>
+                        </form>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
 
 
             <c:if test="${sessionScope.user.roleId == 1}">

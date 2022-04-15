@@ -90,7 +90,7 @@ public class OrderlineMapper {
 
         List<OrderlineDTO> orderlineList = new ArrayList<>();
 
-        String sql = "SELECT cupcakemmp.orderline.orderline_id, cupcakemmp.orderline.order_id, cupcakemmp.orderline.quantity, cupcakemmp.cupcakebuttom.flavor AS buttom, cupcakemmp.cupcaketopping.flavor AS topping FROM cupcakemmp.orderline INNER JOIN cupcakemmp.cupcakebuttom ON cupcakemmp.orderline.buttom_id=cupcakemmp.cupcakebuttom.buttom_id INNER JOIN cupcakemmp.cupcaketopping ON cupcakemmp.orderline.topping_id=cupcakemmp.cupcaketopping.topping_id";
+        String sql = "SELECT cupcakemmp.orderline.orderline_id, cupcakemmp.orderline.order_id, cupcakemmp.orderline.quantity, cupcakemmp.cupcakebuttom.flavor AS buttom, cupcakemmp.cupcaketopping.flavor AS topping FROM cupcakemmp.orderline INNER JOIN cupcakemmp.cupcakebuttom ON cupcakemmp.orderline.buttom_id=cupcakemmp.cupcakebuttom.buttom_id INNER JOIN cupcakemmp.cupcaketopping ON cupcakemmp.orderline.topping_id=cupcakemmp.cupcaketopping.topping_id ORDER BY cupcakemmp.orderline.order_id ASC";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
@@ -119,7 +119,7 @@ public class OrderlineMapper {
         List<OrderlineDTO> orderlineDTOList = null;
         int x = 0;
 
-        String sql = "SELECT cupcakemmp.orderline.orderline_id, cupcakemmp.orderline.order_id, cupcakemmp.orderline.quantity, cupcakemmp.cupcakebuttom.flavor AS buttom, cupcakemmp.cupcaketopping.flavor AS topping FROM cupcakemmp.orderline INNER JOIN cupcakemmp.cupcakebuttom ON cupcakemmp.orderline.buttom_id=cupcakemmp.cupcakebuttom.buttom_id INNER JOIN cupcakemmp.cupcaketopping ON cupcakemmp.orderline.topping_id=cupcakemmp.cupcaketopping.topping_id";
+        String sql = "SELECT cupcakemmp.orderline.orderline_id, cupcakemmp.orderline.order_id, cupcakemmp.orderline.quantity, cupcakemmp.cupcakebuttom.flavor AS buttom, cupcakemmp.cupcaketopping.flavor AS topping FROM cupcakemmp.orderline INNER JOIN cupcakemmp.cupcakebuttom ON cupcakemmp.orderline.buttom_id=cupcakemmp.cupcakebuttom.buttom_id INNER JOIN cupcakemmp.cupcaketopping ON cupcakemmp.orderline.topping_id=cupcakemmp.cupcaketopping.topping_id ORDER BY cupcakemmp.orderline.order_id ASC";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();

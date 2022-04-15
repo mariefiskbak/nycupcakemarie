@@ -53,15 +53,15 @@ public class PayServlet extends HttpServlet {
 
 
 
-                //TODO: ordren skal i databasen (skal totalprisen væk fra ordretabellen)
-                //TODO: problemet er at ordreId skal i ordretabellen, før ordrelinjerne kan komme i
+                //DONE: ordren skal i databasen (skal totalprisen væk fra ordretabellen)
+                //DONE: problemet er at ordreId skal i ordretabellen, før ordrelinjerne kan komme i
 //                Timestamp ts = new Timestamp(10000);
 //                LocalDateTime localDateTime = new LocalDateTimeValueFactory();
                 OrderMapper orderMapper = new OrderMapper(connectionPool);
                 orderMapper.insertOrderToDB(orderId, userId, total, Timestamp.valueOf(LocalDateTime.now()), 1);
 
 
-                //TODO:  ordrelinjerne skal i databasen og (hentes fra mappet?)
+                //dONE:  ordrelinjerne skal i databasen og (hentes fra mappet?)
                 Map<Integer, OrderlineDTO> orderlineDTOMap = (Map<Integer, OrderlineDTO>) session.getAttribute("orderlineDTOMap");
 
                 OrderlineMapper orderlineMapper = new OrderlineMapper(connectionPool);
@@ -69,12 +69,12 @@ public class PayServlet extends HttpServlet {
                     orderlineMapper.insertOrderlineToDB(orderlineDTOMap.get(key));
                 }
 
-                //TODO: orderId'et skal fornys og (sker allerede, hvorfor? pga AI?)
+                //DONE: orderId'et skal fornys og (sker allerede, hvorfor? pga AI?)
 
                 //TODO: Ordren + linjer skal ses på kundens side fra DB
-                //TODO: Ordrene + linjer skal ses på admins side fra DB
+                //DONE: Ordrene + linjer skal ses på admins side fra DB
 
-                //TODO: indkøbskurven skal renses
+                //DONE: indkøbskurven skal renses
                 orderlineDTOMap.clear();
                 List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");
                 cartDTOList.clear();

@@ -8,9 +8,13 @@ private int user_id;
 private int total_price;
 private Timestamp timestamp;
 private int status_id;
-String firstname;
-String lastname;
-String orderStatus;
+
+private String firstname;
+private String lastname;
+private String orderStatus;
+
+private int quantity;
+
 
     public OrderDTO(int order_id, int user_id, int total_price, Timestamp timestamp, int status_id) {
         this.order_id = order_id;
@@ -18,6 +22,30 @@ String orderStatus;
         this.total_price = total_price;
         this.timestamp = timestamp;
         this.status_id = status_id;
+    }
+
+    //constructor til udprint af admins ordreoversigt
+    public OrderDTO(int order_id, Timestamp timestamp, int user_id, String firstname, String lastname, int total_price, String orderStatus) {
+        this.order_id = order_id;
+        this.timestamp = timestamp;
+        this.user_id = user_id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.total_price = total_price;
+        this.orderStatus = orderStatus;
+    }
+
+    //Constuctor til udprint af kundens ordreoversigt
+    public OrderDTO(int order_id, Timestamp timestamp, int quantity, int total_price){
+        this.order_id = order_id;
+        this.timestamp = timestamp;
+        this.quantity = quantity;
+        this.total_price = total_price;
+    }
+
+
+    public int getQuantity() {
+        return quantity;
     }
 
     public String getFirstname() {
@@ -44,15 +72,7 @@ String orderStatus;
         this.orderStatus = orderStatus;
     }
 
-    public OrderDTO(int order_id, Timestamp timestamp, int user_id, String firstname, String lastname, int total_price, String orderStatus) {
-        this.order_id = order_id;
-        this.timestamp = timestamp;
-        this.user_id = user_id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.total_price = total_price;
-        this.orderStatus = orderStatus;
-    }
+
 
     public int getOrder_id() {
         return order_id;

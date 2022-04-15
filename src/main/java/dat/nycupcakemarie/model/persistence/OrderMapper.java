@@ -96,7 +96,7 @@ public class OrderMapper {
 
         List<OrderDTO> orderList = new ArrayList<>();
 
-        String sql = "SELECT cupcakemmp.order.order_id, cupcakemmp.order.timestamp, cupcakemmp.order.user_id, cupcakemmp.user.firstname, cupcakemmp.user.lastname, cupcakemmp.order.total_price, cupcakemmp.orderstatus.name FROM cupcakemmp.order INNER JOIN cupcakemmp.user ON cupcakemmp.order.user_id=cupcakemmp.user.user_id INNER JOIN cupcakemmp.orderstatus ON cupcakemmp.order.status_id=cupcakemmp.orderstatus.status_id";
+        String sql = "SELECT cupcakemmp.order.order_id, cupcakemmp.order.timestamp, cupcakemmp.order.user_id, cupcakemmp.user.firstname, cupcakemmp.user.lastname, cupcakemmp.order.total_price, cupcakemmp.orderstatus.name FROM cupcakemmp.order INNER JOIN cupcakemmp.user ON cupcakemmp.order.user_id=cupcakemmp.user.user_id INNER JOIN cupcakemmp.orderstatus ON cupcakemmp.order.status_id=cupcakemmp.orderstatus.status_id ORDER BY cupcakemmp.order.order_id ASC";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -121,5 +121,36 @@ public class OrderMapper {
         return orderList;
 
     }
+
+
+    public List<OrderDTO> getJoinedOrderDTOListByUserId(int userId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String userIdS = "" + userId;
+        List<OrderDTO> orderList = new ArrayList<>();
+
+        String sql = "SELECT cupcakemmp.order.order_id, cupcakemmp.order.timestamp, SUM(cupcakemmp.orderline.quantity) AS quantity, cupcakemmp.order.total_price FROM cupcakemmp.order INNER JOIN cupcakemmp.orderline ON cupcakemmp.order.order_id=cupcakemmp.orderline.order_id INNER JOIN cupcakemmp.user ON cupcakemmp.order.user_id=cupcakemmp.user.user_id WHERE cupcakemmp.user.user_id = ? GROUP BY cupcakemmp.order.order_id ORDER BY cupcakemmp.order.order_id ASC";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, userIdS);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int order_id = rs.getInt("order_id");
+                    Timestamp timestamp = rs.getTimestamp("timestamp");
+                    int quantity = rs.getInt("quantity");
+                    int total_price = rs.getInt("total_price");
+
+                    OrderDTO orderDTO = new OrderDTO(order_id, timestamp, quantity, total_price);
+                    orderList.add(orderDTO);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning af ordrer fra databasen");
+        }
+        return orderList;
+
+    }
+
 
 }

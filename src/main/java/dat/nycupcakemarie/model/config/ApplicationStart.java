@@ -85,9 +85,9 @@ public class ApplicationStart implements ServletContextListener
 
         //DONE: checke for unik email ved oprettelse
 
-        //TODO: US-1: Som kunde kan jeg bestille og betale cupcakes med en valgfri bund og top, sådan at jeg senere kan køre forbi butikken i Olsker og hente min ordre.
+        //DONE: US-1: Som kunde kan jeg bestille og betale cupcakes med en valgfri bund og top, sådan at jeg senere kan køre forbi butikken i Olsker og hente min ordre.
 
-        //TODO: US-2 Som kunde kan jeg oprette en konto/profil for at kunne betale og gemme en en ordre.
+        //DONE: US-2 Som kunde kan jeg oprette en konto/profil for at kunne betale og gemme en en ordre.
 
         //DONE: US-3: Som administrator kan jeg indsætte beløb på en kundes konto direkte i MySql, så en kunde kan betale for sine ordrer.
 
@@ -95,10 +95,10 @@ public class ApplicationStart implements ServletContextListener
 
         //DONE: US-5: Som kunde eller administrator kan jeg logge på systemet med email og kodeord. Når jeg er logget på, skal jeg kunne se min email på hver side (evt. i topmenuen, som vist på mockup’en).
 
-        //TODO: US-6: Som administrator kan jeg se alle ordrer i systemet, så jeg kan se hvad der er blevet bestilt.
+        //DONE: US-6: Som administrator kan jeg se alle ordrer i systemet, så jeg kan se hvad der er blevet bestilt.
 
         //TODO: US-7: Som administrator kan jeg se alle kunder i systemet og deres ordrer, sådan at jeg kan følge op på ordrer og holde styr på mine kunder.
 
-        //TODO: US-8: Som kunde kan jeg fjerne en ordre fra min indkøbskurv, så jeg kan justere min ordre.
+        //DONE: US-8: Som kunde kan jeg fjerne en ordre fra min indkøbskurv, så jeg kan justere min ordre.
 
         //TODO: US-9: Som administrator kan jeg fjerne en ordre, så systemet ikke kommer til at indeholde udgyldige ordrer. F.eks. hvis kunden aldrig har betalt.

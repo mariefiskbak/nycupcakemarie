@@ -44,7 +44,7 @@
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/CustomerListServlet">Kunder</a>
                     </c:if>
                     <c:if test="${sessionScope.user.roleId == 2 }">
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/OrderServlet">Min side</a>
+                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/UserpageServlet">Min side</a>
                     </c:if>
                     <c:if test="${sessionScope.user == null }">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/login.jsp">Login</a>
@@ -56,7 +56,7 @@
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <c:if test="${sessionScope.user != null }">
-                    <a class="nav-item nav-link" style="color: gray" href="${pageContext.request.contextPath}/userpage.jsp">${sessionScope.user.email}</a>
+                    <a class="nav-item nav-link" style="color: gray" href="${pageContext.request.contextPath}/UserpageServlet">${sessionScope.user.email}</a>
                 </c:if>
                     <a class="nav-item nav-link"  href="${pageContext.request.contextPath}/cart.jsp"><img src="${pageContext.request.contextPath}/images/articon.png" style="height: 2rem; margin-right: 2rem"></a>
             </div>
