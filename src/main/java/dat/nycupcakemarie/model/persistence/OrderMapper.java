@@ -1,5 +1,6 @@
 package dat.nycupcakemarie.model.persistence;
 
+import dat.nycupcakemarie.model.dtos.CustomerDTO;
 import dat.nycupcakemarie.model.dtos.OrderDTO;
 import dat.nycupcakemarie.model.exceptions.DatabaseException;
 
@@ -150,6 +151,30 @@ public class OrderMapper {
         }
         return orderList;
 
+    }
+
+    public void deleteOrder(int orderId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String orderID = "" + orderId;
+
+        String order_id = "" + orderId;
+        OrderDTO orderDTO = null;
+
+        String sql = "UPDATE cupcakemmp.order SET cupcakemmp.order.status_id = '3' WHERE order_id = ?";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, order_id);
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected == 1) {
+
+                } else {
+                    throw new DatabaseException("Ordren blev ikke opdateret");
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Kunne ikke opdatere ordre");
+        }
     }
 
 

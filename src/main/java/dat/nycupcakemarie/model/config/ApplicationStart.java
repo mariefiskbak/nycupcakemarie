@@ -81,6 +81,10 @@ public class ApplicationStart implements ServletContextListener
 
         //TODO: en admin skal kunne gøre andre brugere til admin
 
+        //TODO: SKal ikke printe de slettede ordrer til skærmen, plus evt fortryd mulighed
+
+        //TODO: Knap til at ændre en ordres status
+
         //DONE: checke for ens password ved oprettelse
 
         //DONE: checke for unik email ved oprettelse
@@ -97,8 +101,8 @@ public class ApplicationStart implements ServletContextListener
 
         //DONE: US-6: Som administrator kan jeg se alle ordrer i systemet, så jeg kan se hvad der er blevet bestilt.
 
-        //TODO: US-7: Som administrator kan jeg se alle kunder i systemet og deres ordrer, sådan at jeg kan følge op på ordrer og holde styr på mine kunder.
+        //DONE: US-7: Som administrator kan jeg se alle kunder i systemet og deres ordrer, sådan at jeg kan følge op på ordrer og holde styr på mine kunder.
 
         //DONE: US-8: Som kunde kan jeg fjerne en ordre fra min indkøbskurv, så jeg kan justere min ordre.
 
-        //TODO: US-9: Som administrator kan jeg fjerne en ordre, så systemet ikke kommer til at indeholde udgyldige ordrer. F.eks. hvis kunden aldrig har betalt.
+        //DONE: US-9: Som administrator kan jeg fjerne en ordre, så systemet ikke kommer til at indeholde udgyldige ordrer. F.eks. hvis kunden aldrig har betalt.
