@@ -81,7 +81,7 @@ public class ApplicationStart implements ServletContextListener
 
         //TODO: en admin skal kunne gøre andre brugere til admin
 
-        //TODO: SKal ikke printe de slettede ordrer til skærmen, plus evt fortryd mulighed
+        //DONE: SKal ikke printe de slettede ordrer til skærmen, plus evt fortryd mulighed
 
         //TODO: Knap til at ændre en ordres status
 

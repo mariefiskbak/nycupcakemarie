@@ -97,7 +97,7 @@ public class OrderMapper {
 
         List<OrderDTO> orderList = new ArrayList<>();
 
-        String sql = "SELECT cupcakemmp.order.order_id, cupcakemmp.order.timestamp, cupcakemmp.order.user_id, cupcakemmp.user.firstname, cupcakemmp.user.lastname, cupcakemmp.order.total_price, cupcakemmp.orderstatus.name FROM cupcakemmp.order INNER JOIN cupcakemmp.user ON cupcakemmp.order.user_id=cupcakemmp.user.user_id INNER JOIN cupcakemmp.orderstatus ON cupcakemmp.order.status_id=cupcakemmp.orderstatus.status_id ORDER BY cupcakemmp.order.order_id ASC";
+        String sql = "SELECT cupcakemmp.order.order_id, cupcakemmp.order.timestamp, cupcakemmp.order.user_id, cupcakemmp.user.firstname, cupcakemmp.user.lastname, cupcakemmp.order.total_price, cupcakemmp.orderstatus.name FROM cupcakemmp.order INNER JOIN cupcakemmp.user ON cupcakemmp.order.user_id=cupcakemmp.user.user_id INNER JOIN cupcakemmp.orderstatus ON cupcakemmp.order.status_id=cupcakemmp.orderstatus.status_id WHERE NOT cupcakemmp.order.status_id='3' ORDER BY cupcakemmp.order.order_id ASC";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
