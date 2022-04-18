@@ -43,20 +43,29 @@ public class OrderServlet extends HttpServlet {
         List<List<OrderlineDTO>> listOfLists = new ArrayList<>();
 
         int removeOrderId = 0;
+        int changeOrderId = 0;
 
         try {
             String removeIdS = request.getParameter("remove_order");
             removeOrderId = Integer.parseInt(removeIdS);
+
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-
-
+        try {
+            String changeIdS = request.getParameter("change_order");
+            changeOrderId = Integer.parseInt(changeIdS);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
         try {
 //            orderDTOList = orderMapper.getOrderDTOList();
             if(removeOrderId > 0) {
                 orderMapper.deleteOrder(removeOrderId);
+            }
+            if(changeOrderId > 0){
+                orderMapper.changeOrder(changeOrderId);
             }
             orderDTOList = orderMapper.getJoinedOrderDTOList();
 

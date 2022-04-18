@@ -177,5 +177,26 @@ public class OrderMapper {
         }
     }
 
+    public void changeOrder(int orderId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String order_id = "" + orderId;
+
+        String sql = "UPDATE cupcakemmp.order SET cupcakemmp.order.status_id = CASE WHEN cupcakemmp.order.status_id = '1' THEN '2' WHEN cupcakemmp.order.status_id = '2' THEN '1' END WHERE cupcakemmp.order.order_id = ?";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, order_id);
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected == 1) {
+
+                } else {
+                    throw new DatabaseException("Ordren blev ikke opdateret");
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Kunne ikke opdatere ordre");
+        }
+    }
+
 
 }

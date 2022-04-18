@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="orderlinelist" items="${sessionScope.listoflists}" varStatus="orders">
-                    <form action="">
+                    <form action="OrderServlet">
                         <tr>
                             <td></td>
                             <td>${sessionScope.orderlist[orders.index].order_id}</td>
@@ -43,7 +43,13 @@
                             <td>${sessionScope.orderlist[orders.index].lastname}</td>
                             <td>${sessionScope.orderlist[orders.index].total_price} kr</td>
                             <td>${sessionScope.orderlist[orders.index].orderStatus}</td>
-                            <td>Knap?</td>
+                            <td>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-outline-success" name="change_order"
+                                            value="${sessionScope.orderlist[orders.index].order_id}">Skift ordrestatus
+                                    </button>
+                                </div>
+                            </td>
                             <td>
                                 <div class="col">
                                     <button type="submit" class="btn btn-outline-danger" name="remove_order"
@@ -74,24 +80,19 @@
                                             </thead>
                                             <tbody>
                                             <c:forEach var="orderlines" items="${orderlinelist}">
-<%--                                                <c:set var = "orderline" scope = "session" value = "${orderlines}"/>--%>
-<%--                                                <c:if test = "${orderline.order_id == sessionScope.orderlist[orders.index].order_id}">--%>
-<%--                                                <c:if test = "${orderline.order_id eq sessionScope.orderlist[orders.index].order_id}">--%>
+                                                <%--                                                <c:set var = "orderline" scope = "session" value = "${orderlines}"/>--%>
+                                                <%--                                                <c:if test = "${orderline.order_id == sessionScope.orderlist[orders.index].order_id}">--%>
+                                                <%--                                                <c:if test = "${orderline.order_id eq sessionScope.orderlist[orders.index].order_id}">--%>
 
-<%--                                                <c:if test="${sessionScope.orderlist[orders.index].order_id == orderlines.order_id}">--%>
+                                                <%--                                                <c:if test="${sessionScope.orderlist[orders.index].order_id == orderlines.order_id}">--%>
                                                 <tr>
-<%--                                                    <td><c:out value="${orderline.orderline_id}"/></td>--%>
-<%--                                                    <td><c:out value="${orderline.order_id}"/></td>--%>
-<%--                                                    <td><c:out value="${orderline.quantity}"/></td>--%>
-<%--                                                    <td><c:out value="${orderline.buttom}"/></td>--%>
-<%--                                                    <td><c:out value="${orderline.topping}"/></td>--%>
                                                     <td>${orderlines.orderline_id}</td>
                                                     <td>${orderlines.order_id}</td>
                                                     <td>${orderlines.quantity}</td>
                                                     <td>${orderlines.buttom}</td>
                                                     <td>${orderlines.topping}</td>
                                                 </tr>
-<%--                                                </c:if>--%>
+                                                <%--                                                </c:if>--%>
                                             </c:forEach>
                                             </tbody>
                                         </table>
@@ -107,111 +108,89 @@
 
 
         <br><br><br><br>
-
+        TEST MED LANGE KNAPPER
 
         <div class="table-responsive">
             <table class="table table-striped table-hover">
-                <thead style="margin-bottom: 10rem">
+                <thead>
                 <tr>
-                    <th>
-                            <%--                        <div class="col">--%>
-<%--                        <button type="button" style="width: 100%;">--%>
-                            <table style="width: 100%; border: none; ">
-                                <th scope="col">Order Id</th>
-                                <th scope="col">Bruger Id</th>
-                                <th scope="col">Samlet pris</th>
-                                <th scope="col">Tidsstempel</th>
-                                <th scope="col">Status Id</th>
-                                <th scope="col">Fjern ordre</th>
-                            </table>
-<%--                        </button>--%>
-                            <%--                        </div>--%>
-                    </th>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Tidsstempel</th>
+                    <th scope="col">Bruger Id</th>
+                    <th scope="col">Fornavn</th>
+                    <th scope="col">Efternavn</th>
+                    <th scope="col">Samlet pris</th>
+                    <th scope="col">Ordrestatus</th>
+                    <th scope="col">Ændre ordrestatus</th>
+                    <th scope="col">Fjern ordre</th>
                 </tr>
                 </thead>
-                <br>
                 <tbody>
+                <c:forEach var="orderlinelist" items="${sessionScope.listoflists}" varStatus="orders">
+                <form action="OrderServlet">
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse"
+                                data-bs-target="#expand${sessionScope.orderlist[orders.index].order_id}"
+                                aria-expanded="false"
+                                aria-controls="expand${sessionScope.orderlist[orders.index].order_id}"
+                                style="width: 100%;">
+
+                            <table style="width: 100%; border: none">
+                                <td>${sessionScope.orderlist[orders.index].order_id}</td>
+                                <td>${sessionScope.orderlist[orders.index].timestamp}</td>
+                                <td>${sessionScope.orderlist[orders.index].user_id}</td>
+                                <td>${sessionScope.orderlist[orders.index].firstname}</td>
+                                <td>${sessionScope.orderlist[orders.index].lastname}</td>
+                                <td>${sessionScope.orderlist[orders.index].total_price} kr</td>
+                                <td>${sessionScope.orderlist[orders.index].orderStatus}</td>
+                                <td>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-outline-success btn-sm" name="change_order"
+                                                value="${sessionScope.orderlist[orders.index].order_id}">Skift
+                                            ordrestatus
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" name="remove_order"
+                                                value="${sessionScope.orderlist[orders.index].order_id}">Slet ordre
+                                        </button>
+                                    </div>
+                                </td>
+                            </table>
+                        </button>
+                        <div class="collapse" id="expand${sessionScope.orderlist[orders.index].order_id}">
+                            <table class="table table-success table-striped table-sm">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Orderlinje Id</th>
+                                    <th scope="col">Order Id</th>
+                                    <th scope="col">Antal</th>
+                                    <th scope="col">Bund</th>
+                                    <th scope="col">Top</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="orderlines" items="${orderlinelist}">
+                                    <tr>
+                                        <td>${orderlines.orderline_id}</td>
+                                        <td>${orderlines.order_id}</td>
+                                        <td>${orderlines.quantity}</td>
+                                        <td>${orderlines.buttom}</td>
+                                        <td>${orderlines.topping}</td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </tr>
-                <c:forEach var="orders" items="${sessionScope.orderlist}">
-<%--                    <form action="">--%>
-                    <tr>
-<%--                            <div class="col">--%>
-                                <button type="button" class="btn btn-outline-success" data-bs-toggle="collapse"
-                                        data-bs-target="#expand${orders.order_id}" aria-expanded="false"
-                                        aria-controls="expand${orders.order_id}"
-                                        style="width: 100%">
-
-                                    <table style="width: 100%; border: none">
-                                        <td></td>
-                                        <td>${orders.order_id}</td>
-                                        <td>${orders.user_id}</td>
-                                        <td>${orders.total_price} kr</td>
-                                        <td>${orders.timestamp}</td>
-                                        <td>${orders.status_id}</td>
-                                        <td>
-                                            <div class="col">
-                                                <button type="submit" class="btn btn-outline-danger" name="remove_order"
-                                                        value="${orders.order_id}">Slet
-                                                </button>
-
-                                            </div>
-                                        </td>
-                                    </table>
-                                </button>
-                                <div class="collapse" id="expand${orders.order_id}">
-                                    <table class="table table-success table-striped table-sm">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Orderlinje Id</th>
-                                            <th scope="col">Order Id</th>
-                                            <th scope="col">Antal</th>
-                                            <th scope="col">Bund</th>
-                                            <th scope="col">Top</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%--                                            <c:forEach var="orderlines" items="${sessionScope.orderlinelist}">--%>
-                                        <tr>
-                                                <%--                                                    <td>${orderlines.orderline_id}</td>--%>
-                                                <%--                                                    <td>${orderlines.order_id}</td>--%>
-                                                <%--                                                    <td>${orderlines.quantity}</td>--%>
-                                                <%--                                                    <td>${orderlines.buttomFlavor}</td>--%>
-                                                <%--                                                    <td>${orderlines.toppingFlavor}</td>--%>
-                                            <td>
-                                                1
-                                            </td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                            <%--                                            </c:forEach>--%>
-                                        </tbody>
-                                    </table>
-                                </div>
-<%--                            </div>--%>
-                                <%--                            </td>--%>
-                        </tr>
-<%--                    </form>--%>
+                </form>
                 </c:forEach>
-                </tbody>
             </table>
         </div>
 
-    </jsp:body>
+
+</jsp:body>
 
 </t:pagetemplate>
